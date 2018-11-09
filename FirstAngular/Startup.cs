@@ -48,7 +48,7 @@ namespace FirstAngular
                 .AddJsonOptions(options =>
                 {
                     options.SerializerSettings.Formatting = Formatting.Indented;
-                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+                    options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                     options.SerializerSettings.NullValueHandling = NullValueHandling.Include;
                 });
 
@@ -57,6 +57,8 @@ namespace FirstAngular
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddMemoryCache();
 
             //var connection = @"Server=localhost;Database=Resume;Trusted_Connection=True;ConnectRetryCount=0";
             var connection = @"Server=lokidevresumedb.database.windows.net;Database=LokiDevResumeDb;User Id=jfrench; Password=Devilland34!;Trusted_Connection=False;ConnectRetryCount=0";

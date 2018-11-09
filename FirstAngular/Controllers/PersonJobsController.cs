@@ -34,7 +34,7 @@ namespace FirstAngular.Controllers
                 return BadRequest(ModelState);
             }
 
-            var personJob = await _context.PersonJob.FindAsync(id);
+            var personJob = _context.PersonJob.Include(x => x.Job).Include(x => x.Person).Where(x => x.PersonId == id).FirstOrDefault();
 
             if (personJob == null)
             {
