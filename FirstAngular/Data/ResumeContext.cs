@@ -37,7 +37,8 @@ namespace FirstAngular.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=localhost;Database=Resume;Trusted_Connection=True;");
+                //optionsBuilder.UseSqlServer("Server=localhost;Database=Resume;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=lokidevresumedb.database.windows.net;Database=LokiDevResumeDb;User Id=jfrench; Password=Devilland34!;Trusted_Connection=False;ConnectRetryCount=0");
             }
         }
 
