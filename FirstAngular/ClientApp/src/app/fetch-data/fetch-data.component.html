@@ -24,34 +24,3 @@
     </tr>
   </tbody>
 </table>
-
-<div>
-  <table *ngIf="people">
-    <tr>
-      <td>
-        {{people[0].firstName}}
-      </td>
-      <td>
-        {{people[0].lastName}}
-      </td>
-      <td></td>
-    </tr>
-    <tr>
-      <td>
-        {{people[0].title}}
-      </td>
-    </tr>
-    <tr *ngFor="let pj of people[0].personJob">
-      <td colspan="3">
-        <table *ngIf="pj.job">
-          <tr>
-            <td>{{pj.job.name}}</td>
-          </tr>
-          <tr *ngFor="let jd of pj.job.jobDuty">
-            <td>{{jd.duty.description}}</td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</div>

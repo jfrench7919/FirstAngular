@@ -27,6 +27,11 @@
                         <span class='glyphicon glyphicon-th-list'></span> Fetch data
                     </a>
                 </li>
+                <li [routerLinkActive]='["link-active"]'>
+                  <a [routerLink]='["/fetch-data-person"]' (click)='collapse()'>
+                    <span class='glyphicon glyphicon-th-list'></span> Fetch person
+                  </a>
+                </li>
             </ul>
         </div>
     </div>
