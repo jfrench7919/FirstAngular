@@ -1,37 +1,17 @@
 <p *ngIf="!people"><em>Loading...</em></p>
 
 <div *ngIf="people" class="row col-sm-12 align-items-stretch">
-  <div class="col-sm-9 justify-content-start align-items-end">
+  <div class="col-sm-9 justify-content-start">
     <h2><b>{{ people[0].firstName + " " + people[0].middleName + " " + people[0].lastName + " - " + people[0].title }}</b></h2>
-  </div>
-  <div class="col-sm-3 justify-content-end align-items-end">
     <h4><b>{{ people[0].personLocation[0].location.cityCounty + ", " +  people[0].personLocation[0].location.state }}</b></h4>
   </div>
 </div>
 
 <div *ngIf="people" class="row col-sm-12">
-  <div class="row col-sm-12">
-    <div class="row col-sm-12">
-      <div class="row col-sm-1"></div>
-      <div class="row col-sm-2">
-        <b>Skill</b>
-      </div>
-      <div class="row col-sm-1">
-        <b>Years</b>
-      </div>
-    </div>
+  <div class="col-sm-9" style="height:400px;">
+    <chart style="height:100% !important" [type]="type" [data]="chartData.data" [options]="options"></chart>
   </div>
-  <div *ngFor="let ps of people[0].personSkill" class="row col-sm-12">
-    <div *ngIf="ps.skill" class="row col-sm-12">
-      <div class="row col-sm-1"></div>
-      <div class="row col-sm-2">
-        {{ ps.skill.name }}
-      </div>
-      <div class="row col-sm-1">
-        {{ ps.skill.years }}
-      </div>
-    </div>
-  </div>
+  
   <div *ngFor="let pj of people[0].personJob" class="row col-sm-12">
     <div *ngIf="pj.job" class="row col-sm-12">
       <div class="row col-sm-9">
@@ -39,17 +19,32 @@
         <h6><b>{{ pj.job.jobLocation[0].location.cityCounty + ", " + pj.job.jobLocation[0].location.state }}</b></h6>
       </div>
       <div class="row col-sm-3">
-        <h4><b>{{ pj.job.startMonth + "/" + pj.job.startYear + " - " + pj.job.endMonth + "/" + pj.job.endYear}}</b></h4>
+        <h4 *ngIf="pj.job.endYear && pj.job.endMonth"><b>{{ pj.job.startMonth + "/" + pj.job.startYear + " - " + pj.job.endMonth + "/" + pj.job.endYear}}</b></h4>
+        <h4 *ngIf="!pj.job.endYear && !pj.job.endMonth"><b>{{ pj.job.startMonth + "/" + pj.job.startYear + " - Present"}}</b></h4>
       </div>
     </div>
-    <div class="row col-sm-3">
-      {{ pj.job.description }}
+    <div class="row col-sm-12">
+      <div class="row col-sm-1"></div>
+      <div class="row col-sm-11">
+        {{ pj.job.description }}
+      </div>
     </div>
-    <div *ngIf="pj.job" class="row col-sm-12">
-      <div *ngFor="let jd of pj.job.jobDuty" class="row col-sm-12">
-        <div class="row col-sm-1"></div>
-        <div class="row col-sm-11">
-          {{ jd.duty.description }}
+    <div class="row col-sm-12">
+      <div class="row col-sm-1"></div>
+      <div *ngIf="pj.job" class="row col-sm-11">
+        <div class="row col-sm-12">
+          <div class="row col-sm-1"></div>
+          <div class="row col-sm-11">
+            <b>Jod Duties:</b>
+          </div>
+        </div>
+        <div *ngFor="let jd of pj.job.jobDuty" class="row col-sm-12">
+          <div class="row col-sm-1"></div>
+          <div class="row col-sm-11">
+            <ul style="list-style-type:disc">
+              <li>{{ jd.duty.description }}</li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

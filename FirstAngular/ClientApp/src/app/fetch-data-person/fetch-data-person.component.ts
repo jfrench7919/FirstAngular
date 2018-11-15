@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-fetch-data',
@@ -7,11 +8,43 @@ import { HttpClient } from '@angular/common/http';
 })
 export class FetchDataPersonComponent {
   public people: People[];
+  public chartData: ChartData;
+  
+  public type = 'horizontalBar';
+
+  public options = {
+    responsive: true,
+    barThickness: 20,
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    },
+    legend: {
+      display: false,
+      labels: {
+        fontColor: 'rgb(255, 99, 132)'
+      }
+    }
+  };
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<People[]>(baseUrl + 'api/People').subscribe(result => {
       this.people = result;
     }, error => console.error(error));
+    http.get<ChartData>(baseUrl + 'api/ChartsData/Skills/1').subscribe(result => {
+      this.chartData = result;
+    }, error => console.error(error));
+  }
+}
+
+interface ChartData {
+  data: {
+    labels: Array<string>,
+    datasets: Array<{ label: string, data: Array<number>, backgroundColor: Array<string> }>
   }
 }
 

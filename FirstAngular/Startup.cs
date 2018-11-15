@@ -60,8 +60,8 @@ namespace FirstAngular
 
             //services.AddMemoryCache();
 
-            //var connection = @"Server=localhost;Database=Resume;Trusted_Connection=True;ConnectRetryCount=0";
-            var connection = @"Server=lokidevresumedb.database.windows.net;Database=LokiDevResumeDb;User Id=jfrench; Password=Devilland34!;Trusted_Connection=False;ConnectRetryCount=0";
+            var connection = @"Server=localhost;Database=Resume;Trusted_Connection=True;ConnectRetryCount=0";
+            //var connection = @"Server=lokidevresumedb.database.windows.net;Database=LokiDevResumeDb;User Id=jfrench; Password=Devilland34!;Trusted_Connection=False;ConnectRetryCount=0";
             services.AddDbContext<ResumeContext>(options => options.UseSqlServer(connection));
         }
 
