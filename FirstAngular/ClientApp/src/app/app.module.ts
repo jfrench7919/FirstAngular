@@ -31,7 +31,7 @@ import { ChartModule } from 'angular2-chartjs';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'fetch-data-person', component: FetchDataPersonComponent },
+      { path: 'fetch-data-person/:id', component: FetchDataPersonComponent },
     ])
   ],
   providers: [],

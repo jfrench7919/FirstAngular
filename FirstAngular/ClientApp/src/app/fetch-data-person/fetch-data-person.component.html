@@ -2,8 +2,8 @@
 
 <div *ngIf="people" class="row col-sm-12 align-items-stretch">
   <div class="col-sm-9 justify-content-start">
-    <h2><b>{{ people[0].firstName + " " + people[0].middleName + " " + people[0].lastName + " - " + people[0].title }}</b></h2>
-    <h4><b>{{ people[0].personLocation[0].location.cityCounty + ", " +  people[0].personLocation[0].location.state }}</b></h4>
+    <h2><b>{{ people[id - 1].firstName + " " + people[id - 1].middleName + " " + people[id - 1].lastName + " - " + people[id - 1].title }}</b></h2>
+    <h4><b>{{ people[id - 1].personLocation[id - 1].location.cityCounty + ", " +  people[id - 1].personLocation[id - 1].location.state }}</b></h4>
   </div>
 </div>
 
@@ -12,7 +12,7 @@
     <chart style="height:100% !important" [type]="type" [data]="chartData.data" [options]="options"></chart>
   </div>
   
-  <div *ngFor="let pj of people[0].personJob" class="row col-sm-12">
+  <div *ngFor="let pj of people[id - 1].personJob" class="row col-sm-12">
     <div *ngIf="pj.job" class="row col-sm-12">
       <div class="row col-sm-9">
         <h4><b>{{ pj.job.name }}</b></h4>

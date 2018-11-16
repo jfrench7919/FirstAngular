@@ -17,7 +17,7 @@
   <tbody>
     <tr  *ngFor="let person of people">
       <td>{{ person.id }}</td>
-      <td><a routerLink="/fetch-data-person" routerLinkActive="active">{{ person.firstName }}</a></td>
+      <td><a [routerLink]="['/fetch-data-person', person.id]" routerLinkActive="active">{{ person.firstName }}</a></td>
       <td>{{ person.lastName }}</td>
       <td>{{person.title}}</td>
       <td>{{person.personJob[0].job.name}}</td>

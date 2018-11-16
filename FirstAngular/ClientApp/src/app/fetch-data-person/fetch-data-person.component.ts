@@ -1,16 +1,18 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { forEach } from '@angular/router/src/utils/collection';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-fetch-data',
   templateUrl: './fetch-data-person.component.html'
 })
-export class FetchDataPersonComponent {
+export class FetchDataPersonComponent implements OnInit, OnDestroy {
   public people: People[];
   public chartData: ChartData;
-  
+  public id: number;
   public type = 'horizontalBar';
+  private sub: any;
 
   public options = {
     responsive: true,
@@ -31,13 +33,25 @@ export class FetchDataPersonComponent {
     }
   };
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
     http.get<People[]>(baseUrl + 'api/People').subscribe(result => {
       this.people = result;
     }, error => console.error(error));
     http.get<ChartData>(baseUrl + 'api/ChartsData/Skills/1').subscribe(result => {
       this.chartData = result;
     }, error => console.error(error));
+  }
+
+  ngOnInit() {
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id']; // (+) converts string 'id' to a number
+      //alert(this.id);
+      // In a real app: dispatch action to load the details here.
+    });
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 }
 
