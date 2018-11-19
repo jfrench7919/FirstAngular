@@ -44,6 +44,44 @@ namespace FirstAngular.Controllers
             return Ok(location);
         }
 
+        // GET: api/Locations/5
+        [HttpGet("ByJob/{id}")]
+        public async Task<IActionResult> GetLocationsByJob([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var locations = _context.JobLocation.Include(x => x.Location).Where(x => x.JobId == id);
+
+            if (locations == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(locations);
+        }
+
+        // GET: api/Locations/5
+        [HttpGet("ByPerson/{id}")]
+        public async Task<IActionResult> GetLocationByPerson([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var location = _context.PersonLocation.Include(x => x.Location).Where(x => x.PersonId == id).FirstOrDefault();
+
+            if (location == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(location);
+        }
+
         // PUT: api/Locations/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutLocation([FromRoute] int id, [FromBody] Location location)

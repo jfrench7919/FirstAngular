@@ -44,6 +44,25 @@ namespace FirstAngular.Controllers
             return Ok(job);
         }
 
+        // GET: api/Jobs/ByPeople/5
+        [HttpGet("ByPerson/{id}")]
+        public async Task<IActionResult> GetJobsByPerson([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var jobs = _context.PersonJob.Include(x => x.Job).Where(x => x.PersonId == id);
+
+            if (jobs == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(jobs);
+        }
+
         // PUT: api/Jobs/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutJob([FromRoute] int id, [FromBody] Job job)

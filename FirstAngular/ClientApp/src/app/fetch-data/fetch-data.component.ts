@@ -11,6 +11,16 @@ export class FetchDataComponent {
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<People[]>(baseUrl + 'api/People').subscribe(result => {
       this.people = result;
+      this.people.forEach(function (p) {
+        http.get<PersonJob[]>(baseUrl + 'api/Jobs/ByPerson/' + p.id).subscribe(async result => {
+          p.personJob = await result;
+          p.personJob.forEach(function (pj) {
+            http.get<JobLocation[]>(baseUrl + 'api/Locations/ByJob/' + pj.jobId).subscribe(async result => {
+              pj.job.jobLocation = await result;
+            }, error => console.error(error));
+         });
+        }, error => console.error(error));
+      });
     }, error => console.error(error));
   }
 }
@@ -43,6 +53,13 @@ interface Job {
   name: string;
   jobDuty: Array<Duty>;
   jobLocation: Array<Location>;
+}
+
+interface JobLocation {
+  id: number;
+  locationId: number;
+  jobId: number;
+  location: Location;
 }
 
 interface Duty {

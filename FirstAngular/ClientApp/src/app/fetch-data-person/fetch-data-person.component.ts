@@ -8,11 +8,13 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './fetch-data-person.component.html'
 })
 export class FetchDataPersonComponent implements OnInit, OnDestroy {
-  public people: People[];
+  public person: People;
   public chartData: ChartData;
+
   public id: number;
-  public type = 'horizontalBar';
   private sub: any;
+
+  public type = 'horizontalBar';
 
   public options = {
     responsive: true,
@@ -34,20 +36,38 @@ export class FetchDataPersonComponent implements OnInit, OnDestroy {
   };
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string, private route: ActivatedRoute) {
-    http.get<People[]>(baseUrl + 'api/People').subscribe(result => {
-      this.people = result;
+    this.sub = this.route.params.subscribe(params => {
+      this.id = +params['id'];
+    });
+    http.get<People>(baseUrl + 'api/People' + '/' + this.id).subscribe(async result => {
+      this.person = await result;
+      http.get<PersonLocation>(baseUrl + 'api/Locations/ByPerson/' + this.id).subscribe(async result => {
+        this.person.personLocation = await result;
+      }, error => console.error(error));
+      http.get<PersonJob[]>(baseUrl + 'api/Jobs/ByPerson/' + this.id).subscribe(async result => {
+        this.person.personJob = await result;
+        this.person.personJob.forEach(function (pj) {
+          http.get<JobLocation[]>(baseUrl + 'api/Locations/ByJob/' + pj.jobId).subscribe(async result => {
+            pj.job.jobLocation = await result;
+          }, error => console.error(error));
+          http.get<JobDuty[]>(baseUrl + 'api/Duties/ByJob/' + pj.jobId).subscribe(async result => {
+            pj.job.jobDuty = await result;
+          }, error => console.error(error));
+        });
+      }, error => console.error(error));
     }, error => console.error(error));
-    http.get<ChartData>(baseUrl + 'api/ChartsData/Skills/1').subscribe(result => {
-      this.chartData = result;
+    http.get<ChartData>(baseUrl + 'api/ChartsData/Skills/' + this.id).subscribe(async result => {
+      this.chartData = await result;
     }, error => console.error(error));
+    
   }
 
   ngOnInit() {
-    this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
+    //this.sub = this.route.params.subscribe(params => {
+      //this.id = +params['id']; // (+) converts string 'id' to a number
       //alert(this.id);
       // In a real app: dispatch action to load the details here.
-    });
+    //});
   }
 
   ngOnDestroy() {
@@ -70,7 +90,7 @@ interface People {
   title: string;
   personJob: Array<PersonJob>;
   personCert: Array<PersonCert>;
-  personLocation: Array<PersonLocation>;
+  personLocation: PersonLocation;
   jobManager: Array<JobManager>;
   personEducation: Array<PersonEducation>;
   personReferencePerson: Array<PersonReferencePerson>;
@@ -93,8 +113,22 @@ interface Job {
   startYear: number;
   endMonth: number;
   endYear: number;
-  jobDuty: Array<Duty>;
-  jobLocation: Array<Location>;
+  jobDuty: Array<JobDuty>;
+  jobLocation: Array<JobLocation>;
+}
+
+interface JobLocation {
+  id: number;
+  locationId: number;
+  jobId: number;
+  location: Location;
+}
+
+interface JobDuty {
+  id: number;
+  dutyId: number;
+  jobId: number;
+  duty: Duty;
 }
 
 interface Duty {
@@ -112,6 +146,9 @@ interface Cert {
 }
 
 interface PersonLocation {
+  id: number;
+  locationId: number;
+  personId: number;
   location: Location;
 }
 

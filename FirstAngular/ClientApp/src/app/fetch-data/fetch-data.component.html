@@ -15,12 +15,12 @@
     </tr>
   </thead>
   <tbody>
-    <tr  *ngFor="let person of people">
-      <td>{{ person.id }}</td>
+    <tr *ngFor="let person of people">
+      <td><a [routerLink]="['/fetch-data-person', person.id]" routerLinkActive="active">{{ person.id }}</a></td>
       <td><a [routerLink]="['/fetch-data-person', person.id]" routerLinkActive="active">{{ person.firstName }}</a></td>
-      <td>{{ person.lastName }}</td>
+      <td><a [routerLink]="['/fetch-data-person', person.id]" routerLinkActive="active">{{ person.lastName }}</a></td>
       <td>{{person.title}}</td>
-      <td>{{person.personJob[0].job.name}}</td>
+      <td *ngIf="person.personJob[0].job">{{person.personJob[0].job.name}}</td>
     </tr>
   </tbody>
 </table>

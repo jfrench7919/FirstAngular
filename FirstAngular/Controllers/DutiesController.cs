@@ -44,6 +44,25 @@ namespace FirstAngular.Controllers
             return Ok(duty);
         }
 
+        // GET: api/Duties/5
+        [HttpGet("ByJob/{id}")]
+        public async Task<IActionResult> GetDutyByJob([FromRoute] int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var duties = _context.JobDuty.Include(x => x.Duty).Where(x => x.JobId == id);
+
+            if (duties == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(duties);
+        }
+
         // PUT: api/Duties/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDuty([FromRoute] int id, [FromBody] Duty duty)

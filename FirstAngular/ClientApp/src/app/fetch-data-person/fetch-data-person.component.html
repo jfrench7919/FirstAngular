@@ -1,29 +1,29 @@
-<p *ngIf="!people"><em>Loading...</em></p>
+<p *ngIf="!person"><em>Loading...</em></p>
 
-<div *ngIf="people" class="row col-sm-12 align-items-stretch">
+<div *ngIf="person" class="row col-sm-12 align-items-stretch">
   <div class="col-sm-9 justify-content-start">
-    <h2><b>{{ people[id - 1].firstName + " " + people[id - 1].middleName + " " + people[id - 1].lastName + " - " + people[id - 1].title }}</b></h2>
-    <h4><b>{{ people[id - 1].personLocation[id - 1].location.cityCounty + ", " +  people[id - 1].personLocation[id - 1].location.state }}</b></h4>
+    <h2><b>{{ person.firstName + " " + person.middleName + " " + person.lastName + " - " + person.title }}</b></h2>
+    <h4 *ngIf="person.personLocation.location"><b>{{ person.personLocation.location.cityCounty + ", " +  person.personLocation.location.state }}</b></h4>
   </div>
 </div>
 
-<div *ngIf="people" class="row col-sm-12">
-  <div class="col-sm-9" style="height:400px;">
+<div *ngIf="person" class="row col-sm-12">
+  <div *ngIf="chartData.data" class="col-sm-9" style="height:400px;">
     <chart style="height:100% !important" [type]="type" [data]="chartData.data" [options]="options"></chart>
   </div>
   
-  <div *ngFor="let pj of people[id - 1].personJob" class="row col-sm-12">
+  <div *ngFor="let pj of person.personJob" class="row col-sm-12">
     <div *ngIf="pj.job" class="row col-sm-12">
       <div class="row col-sm-9">
         <h4><b>{{ pj.job.name }}</b></h4>
-        <h6><b>{{ pj.job.jobLocation[0].location.cityCounty + ", " + pj.job.jobLocation[0].location.state }}</b></h6>
+        <h6 *ngIf="pj.job.jobLocation[0]"><b>{{ pj.job.jobLocation[0].location.cityCounty + ", " + pj.job.jobLocation[0].location.state }}</b></h6>
       </div>
       <div class="row col-sm-3">
         <h4 *ngIf="pj.job.endYear && pj.job.endMonth"><b>{{ pj.job.startMonth + "/" + pj.job.startYear + " - " + pj.job.endMonth + "/" + pj.job.endYear}}</b></h4>
         <h4 *ngIf="!pj.job.endYear && !pj.job.endMonth"><b>{{ pj.job.startMonth + "/" + pj.job.startYear + " - Present"}}</b></h4>
       </div>
     </div>
-    <div class="row col-sm-12">
+    <div *ngIf="pj.job" class="row col-sm-12">
       <div class="row col-sm-1"></div>
       <div class="row col-sm-11">
         {{ pj.job.description }}
