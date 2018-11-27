@@ -10,6 +10,7 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { FetchDataPersonComponent } from './fetch-data-person/fetch-data-person.component';
+import { AddJobComponent } from './addJob/addJob.component';
 
 import { ChartModule } from 'angular2-chartjs';
 
@@ -20,7 +21,8 @@ import { ChartModule } from 'angular2-chartjs';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    FetchDataPersonComponent
+    FetchDataPersonComponent,
+    AddJobComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,6 +34,7 @@ import { ChartModule } from 'angular2-chartjs';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'fetch-data-person/:id', component: FetchDataPersonComponent },
+      { path: 'addjob/:id', component: AddJobComponent },
     ])
   ],
   providers: [],

@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { People, PersonJob, Location2 } from '../models/models.personInterfaces';
 
 @Component({
   selector: 'app-fetch-data',
@@ -15,7 +16,7 @@ export class FetchDataComponent {
         http.get<PersonJob[]>(baseUrl + 'api/Jobs/ByPerson/' + p.id).subscribe(async result => {
           p.personJob = await result;
           p.personJob.forEach(function (pj) {
-            http.get<JobLocation[]>(baseUrl + 'api/Locations/ByJob/' + pj.jobId).subscribe(async result => {
+            http.get<Location2[]>(baseUrl + 'api/Locations/ByJob/' + pj.jobId).subscribe(async result => {
               pj.job.jobLocation = await result;
             }, error => console.error(error));
          });
@@ -23,105 +24,5 @@ export class FetchDataComponent {
       });
     }, error => console.error(error));
   }
-}
-
-interface People {
-  id: number;
-  firstName: string;
-  lastName: string;
-  middleName: string;
-  title: string;
-  personJob: Array<PersonJob>;
-  personCert: Array<PersonCert>;
-  personLocation: Array<PersonLocation>;
-  jobManager: Array<JobManager>;
-  personEducation: Array<PersonEducation>;
-  personReferencePerson: Array<PersonReferencePerson>;
-  personSkill: Array<PersonSkill>;
-  personUrl: Array<PersonUrl>;
-}
-
-interface PersonJob {
-  id: number;
-  personId: number;
-  jobId: number;
-  job: Job;
-}
-
-interface Job {
-  id: number;
-  name: string;
-  jobDuty: Array<Duty>;
-  jobLocation: Array<Location>;
-}
-
-interface JobLocation {
-  id: number;
-  locationId: number;
-  jobId: number;
-  location: Location;
-}
-
-interface Duty {
-  id: number;
-  description: string;
-}
-
-interface PersonCert{
-  id: number
-  cert: Cert;
-}
-
-interface Cert {
-  id: number;
-}
-
-interface PersonLocation {
-  location: Location;
-}
-
-interface Location {
-  id: number;
-}
-
-interface JobManager {
-  id: number;
-  manager: People;
-}
-
-interface PersonEducation {
-  id: number;
-  education: Education;
-}
-
-interface Education {
-  id: number;
-}
-
-interface PersonReferencePerson {
-  id: number;
-  referencePerson: ReferencePerson;
-}
-
-interface ReferencePerson {
-  id: number;
-}
-
-interface PersonSkill {
-  id: number;
-  skill: Skill;
-}
-
-interface Skill {
-  id: number;
-}
-
-interface PersonUrl {
-  id: number;
-  url: Url;
-}
-
-interface Url {
-  id: number;
 }
 
