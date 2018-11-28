@@ -6,7 +6,7 @@
       <div class="col-sm-4">
         <div class="form-group">
           <label for="name">Name:</label>
-          <input [(ngModel)]="job.name" (ngModelChange)="name=$event" name="name" type="text" class="form-control" id="name"  />
+          <input [(ngModel)]="job.name" (ngModelChange)="job.name=$event" name="name" type="text" class="form-control" id="name"  />
         </div>
         <label>{{job.name}}</label>
       </div>
@@ -15,7 +15,7 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label for="description">Description:</label>
-          <textarea [(ngModel)]="job.description" (ngModelChange)="name=$event" name="description" rows="5" class="form-control" id="description"></textarea>
+          <textarea [(ngModel)]="job.description" (ngModelChange)="job.description=$event" name="description" rows="5" class="form-control" id="description"></textarea>
         </div>
         <label>{{job.description}}</label>
       </div>
@@ -24,7 +24,7 @@
       <div class="col-sm-12">
         <div class="form-group">
           <label for="address">Address:</label>
-          <input [(ngModel)]="job.jobLocation[0].address" (ngModelChange)="name=$event" name="address" type="text" class="form-control" id="address" />
+          <input [(ngModel)]="job.jobLocation[0].address" (ngModelChange)="job.jobLocation[0].address=$event" name="address" type="text" class="form-control" id="address" />
         </div>
         <label>{{job.jobLocation[0].address}}</label>
       </div>
@@ -33,23 +33,23 @@
       <div class="col-sm-6">
         <div class="form-group">
           <label for="city">City/County:</label>
-          <input [(ngModel)]="job.jobLocation[0].city" (ngModelChange)="name=$event" name="city" type="text" class="form-control" id="city" />
+          <input [(ngModel)]="job.jobLocation[0].cityCounty" (ngModelChange)="job.jobLocation[0].cityCounty=$event" name="city" type="text" class="form-control" id="city" />
         </div>
-        <label>{{job.jobLocation[0].city}}</label>
+        <label>{{job.jobLocation[0].cityCounty}}</label>
       </div>
       <div class="col-sm-2">
         <div class="form-group">
           <label for="state">State:</label>
-          <input [(ngModel)]="job.jobLocation[0].state" (ngModelChange)="name=$event" name="state" type="text" class="form-control" id="state" />
+          <input [(ngModel)]="job.jobLocation[0].state" (ngModelChange)="job.jobLocation[0].state=$event" name="state" type="text" class="form-control" id="state" />
         </div>
         <label>{{job.jobLocation[0].state}}</label>
       </div>
       <div class="col-sm-4">
         <div class="form-group">
           <label for="zipCode">Zip Code:</label>
-          <input [(ngModel)]="job.jobLocation[0].zipCode" (ngModelChange)="name=$event" name="zipCode" type="text" class="form-control" id="zipCode" />
+          <input [(ngModel)]="job.jobLocation[0].zip" (ngModelChange)="job.jobLocation[0].zip=$event" name="zipCode" type="text" class="form-control" id="zipCode" />
         </div>
-        <label>{{job.jobLocation[0].zipCode}}</label>
+        <label>{{job.jobLocation[0].zip}}</label>
       </div>
     </div>
     <div class="row">
