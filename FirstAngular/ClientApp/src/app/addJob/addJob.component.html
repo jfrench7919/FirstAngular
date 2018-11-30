@@ -1,12 +1,12 @@
 <h1>Add Job</h1>
 
-<form>
+<form ng-submit="postJob()">
   <div class="col-sm-6">
     <div class="row">
       <div class="col-sm-4">
         <div class="form-group">
           <label for="name">Name:</label>
-          <input [(ngModel)]="job.name" (ngModelChange)="job.name=$event" name="name" type="text" class="form-control" id="name"  />
+          <input [(ngModel)]="job.name" (ngModelChange)="job.name=$event" name="name" type="text" class="form-control" id="name" />
         </div>
         <label>{{job.name}}</label>
       </div>
@@ -18,6 +18,46 @@
           <textarea [(ngModel)]="job.description" (ngModelChange)="job.description=$event" name="description" rows="5" class="form-control" id="description"></textarea>
         </div>
         <label>{{job.description}}</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <label>From</label>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="startMonth">Month:</label>
+              <input [(ngModel)]="job.startMonth" type="number" min="1" max="12" (ngModelChange)="job.startMonth=$event" name="startMonth" class="form-control" id="startMonth" />
+            </div>
+            <label>{{job.startMonth}}</label>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="startYear">Year:</label>
+              <input [(ngModel)]="job.startYear" type="number" min="1980" max="2022" (ngModelChange)="job.startYear=$event" name="startYear" class="form-control" id="startYear" />
+            </div>
+            <label>{{job.startYear}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <label>To</label>
+        <div class="row">
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="endMonth">Month:</label>
+              <input [(ngModel)]="job.endMonth" type="number" min="1" max="12" (ngModelChange)="job.endMonth=$event" name="endMonth" class="form-control" id="endMonth" />
+            </div>
+            <label>{{job.endMonth}}</label>
+          </div>
+          <div class="col-sm-4">
+            <div class="form-group">
+              <label for="endYear">Year:</label>
+              <input [(ngModel)]="job.endYear" type="number" min="1980" max="2022" (ngModelChange)="job.endYear=$event" name="endYear" class="form-control" id="endYear" />
+            </div>
+            <label>{{job.endYear}}</label>
+          </div>
+        </div>
       </div>
     </div>
     <div class="row">
@@ -52,9 +92,10 @@
         <label>{{job.jobLocation[0].zip}}</label>
       </div>
     </div>
+    
     <div class="row">
       <div class="col-sm-12">
-        Duties......
+        <input class="btn btn-primary" type="submit">
       </div>
     </div>
   </div>

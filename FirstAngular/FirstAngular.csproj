@@ -38,10 +38,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\addJob\addJob.service.ts" />
     <None Remove="ClientApp\src\app\models\models.personInterfaces.ts" />
   </ItemGroup>
 
   <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\addJob\addJob.service.ts" />
     <TypeScriptCompile Include="ClientApp\src\app\models\models.personInterfaces.ts" />
   </ItemGroup>
 

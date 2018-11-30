@@ -1,9 +1,10 @@
-import { Component, Inject} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, Inject } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { Job } from '../models/models.personInterfaces';
+import { AddJobService } from './addJob.service';
 
 @NgModule({
   imports: [BrowserModule, FormsModule],
@@ -15,10 +16,12 @@ import { Job } from '../models/models.personInterfaces';
   selector: 'app-addJob',
   templateUrl: './addJob.component.html'
 })
+
 export class AddJobComponent {
   public job: Job;
+  public addJobService: AddJobService;
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.job = {
       id: 0,
       name: '',
@@ -35,10 +38,24 @@ export class AddJobComponent {
           cityCounty: '',
           state: '',
           zip: '',
-          phone:''
+          phone: ''
         }
       ]
     };
+  }
+
+  public postJob() {
+    alert('test');
+    this.http.post('./api/jobs',
+      this.job)
+      .subscribe(
+        data => {
+          console.log("POST Request is successful ", data);
+        },
+        error => {
+          console.log("Error", error);
+        }
+      );
   }
 }
 
